@@ -21,11 +21,16 @@
 
   @date
     09/23/2021
+
+  @ported by rooney.jang (rooney.jang@codezoo.co.kr)	
  */
 // libraries
 
 // initialize the library instance
 #include "TLTMDM.h"
+
+#define MDMSerial Serial1
+#define ON_OFF 2
 
 ME310* myME310 = new ME310();
 
@@ -35,16 +40,17 @@ TLTScanner scannerNetworks(myME310);
 // Save data variables
 String IMEI = "";
 
-char APN[]= "apn";
+char APN[]= "simplio.apn";
 
 void setup() {
   // initialize serial communications and wait for port to open:
   Serial.begin(115200);
-  myME310->begin(115200);
-  delay(1000);
+  MDMSerial.begin(115200);
+  delay(100);
+  myME310->debugMode(false);
   myME310->powerOn(ON_OFF);
-  delay(5000);
-  Serial.println("NB IoT/LTE Cat M1 networks scanner");
+
+  Serial.println("LTE Cat.M1 networks scanner");
   scannerNetworks.begin();
 
   // connection state
