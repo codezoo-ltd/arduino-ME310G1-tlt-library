@@ -48,15 +48,12 @@ bool TLTGNSS::setGNSSConfiguration(void)
   _rc = _me310->gnss_configuration(2,1);
   if(_rc == ME310::RETURN_VALID)
   {
-    _me310->module_reboot();
+    Serial.println(_me310->buffer_cstr(1));
   }
-
-  delay(10000);
   _rc = _me310->gnss_configuration(3,0);
   if(_rc == ME310::RETURN_VALID)
   {
     _me310->read_gnss_configuration();
-    delay(5000);
     _rc = _me310->gnss_controller_power_management(1);
 
     if( _rc == ME310::RETURN_VALID )

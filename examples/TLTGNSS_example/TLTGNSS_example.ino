@@ -26,10 +26,15 @@
 
   @date
     10/14/2021
+
+  @ported by rooney.jang (rooney.jang@codezoo.co.kr)	
  */
 
 
 #include <TLTMDM.h>
+
+#define MDMSerial Serial1
+#define ON_OFF 2
 
 ME310 *_me310 = new ME310();
 
@@ -39,15 +44,13 @@ TLTGNSS gnss(_me310, true);
 
 void setup()
 {
-
   Serial.begin(115200);
-  _me310->begin(115200);
-  delay(3000);
-
+  MDMSerial.begin(115200);
+  delay(100);
   Serial.println("TLT GNSS example, enabling ME310 module");
-
-  _me310->powerOn();
-  delay(5000);
+  _me310->debugMode(false);
+  _me310->powerOn(ON_OFF);
+  _me310->module_reboot();
   Serial.print("Initializing GNSS");
   while (!gnss.setGNSSConfiguration())
   {
