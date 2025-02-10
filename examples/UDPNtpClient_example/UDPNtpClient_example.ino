@@ -24,19 +24,29 @@
 
   @date
     25/08/2021
+
+  @ported by rooney.jang (rooney.jang@codezoo.co.kr)	
  */
 
 
 #include <TLTMDM.h>
 #include <TimeLib.h>
 
+#define MDMSerial Serial1
+#define ON_OFF 2
 
 unsigned int localPort = 2500;      // local port to listen for UDP packets
 
 const char timeServer[] = "0.it.pool.ntp.org";
 unsigned short hostPort = 123;
 
-const int timeZone = 2;
+const int timeZone = 9;     // Seoul Time (KOR)
+//const int timeZone = 1;   // Central European Time
+//const int timeZone = -5;  // Eastern Standard Time (USA)
+//const int timeZone = -4;  // Eastern Daylight Time (USA)
+//const int timeZone = -8;  // Pacific Standard Time (USA)
+//const int timeZone = -7;  // Pacific Daylight Time (USA)
+
 time_t prevDisplay = 0; // when the digital clock was displayed
 
 const int NTP_PACKET_SIZE = 48; // NTP time stamp is in the first 48 bytes of the message
@@ -49,16 +59,16 @@ GPRS gprs(myME310);
 TLT tltAccess(myME310);
 TLTUDP Udp(myME310);
 
-char APN[] = "APN";
+char APN[] = "simplio.apn";
 
 void setup()
 {
   // Open serial communications and wait for port to open:
   Serial.begin(115200);
-  myME310->begin(115200);
-  delay(1000);
+  MDMSerial.begin(115200);
+  delay(100);
+  myME310->debugMode(false);
   myME310->powerOn(ON_OFF);
-  delay(5000);
 
   Serial.println(F("Starting Arduino UDP NTP client."));
   // connection state
