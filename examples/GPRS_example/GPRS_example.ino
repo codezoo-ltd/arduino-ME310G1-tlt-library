@@ -23,10 +23,14 @@
 
   @date
     09/23/2021
+
+  @ported by rooney.jang (rooney.jang@codezoo.co.kr)	
  */
 // libraries
 #include <TLTMDM.h>
 
+#define MDMSerial Serial1
+#define ON_OFF 2
 
 // initialize the library instance
 ME310* myME310 = new ME310();
@@ -37,7 +41,7 @@ TLT tltAccess(myME310);
 // messages for serial monitor response
 String oktext = "OK";
 String errortext = "ERROR";
-char APN[]= "APN";
+char APN[]= "simplio.apn";
 
 // URL and path (for example: example.org)
 char url[] = "example.org";
@@ -54,10 +58,10 @@ void setup()
 {
   // initialize serial communications and wait for port to open:
   Serial.begin(115200);
-  myME310->begin(115200);
-  delay(2000);
+  MDMSerial.begin(115200);
+  delay(100);
+  myME310->debugMode(false);
   myME310->powerOn(ON_OFF);
-  delay(5000);
 }
 
 void loop() {
@@ -65,8 +69,8 @@ void loop() {
 
   // start module
   // if your SIM has PIN, pass it as a parameter of begin() in quotes
-  Serial.print("Connecting NB IoT / LTE Cat M1 network...");
-  if ((tltAccess.begin(0, APN, true) == READY))
+  Serial.print("Connecting LTE Cat.M1 network...");
+  if ((tltAccess.begin(0, APN, true) != READY))
   {
     Serial.println(errortext);
   }
@@ -74,7 +78,7 @@ void loop() {
 
   // attach GPRS
   Serial.println("Attaching to GPRS...");
-  if ((gprs.attachGPRS() == GPRS_READY))
+  if ((gprs.attachGPRS() != GPRS_READY))
   {
     Serial.println(errortext);
   }
@@ -166,6 +170,7 @@ void loop() {
           Serial.println(oktext);
           Serial.println("TEST COMPLETE!");
           test = false;
+		  exit(0);
         }
       }
 
