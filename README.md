@@ -33,7 +33,6 @@ The library provides the following classes:
 
 The following examples are available:
 
- - **[GPRS_example](examples/GPRS_example/GPRS_example.ino)** : _sest the device connectivity trying to communicate with a HTTP server_
  - **[ScanNetworks_example](examples/ScanNetworks_example/ScanNetworks_example.ino)** : _Scan nearby network cells and provide info_
  - **[TLTGNSS_example](examples/TLTGNSS_example/TLTGNSS_example.ino)** : _Configure the module in GNSS priority and then waits a fix, printing the retrieved coordinates (in decimal and DMS formats)_
  - **[UDPNtpClient_example](examples/UDPNtpClient_example/UDPNtpClient_example.ino)** : _UDP client used to retrieve NTP time_
