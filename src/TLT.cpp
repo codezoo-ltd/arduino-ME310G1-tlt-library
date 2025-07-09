@@ -892,7 +892,6 @@ This method calls reboot method if flag is true
  */
 bool TLT::TLTRestart(bool flag)
 {
-    digitalWrite(LED_BUILTIN, LOW);
     if (flag) 
     {
         _me310->module_reboot();

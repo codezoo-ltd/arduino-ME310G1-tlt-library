@@ -335,7 +335,7 @@ This method creates a byte buffer and calls the method read
  */
 int TLTUDP::read()
 {
-    byte b;
+    uint8_t b;
     if (read(&b, sizeof(b)) == 1)
     {
         return b;

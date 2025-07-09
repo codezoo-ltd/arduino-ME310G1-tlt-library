@@ -544,7 +544,7 @@ This method creates a byte buffer and calls the method read
  */
 int TLTClient::read()
 {
-  byte b;
+  uint8_t b;
 
   if (read(&b, 1) == 1)
   {
